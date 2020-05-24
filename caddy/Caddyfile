@@ -1,4 +1,4 @@
-:9090 {
+:3334 {
     proxy / prometheus:9090 {
             transparent
         }
@@ -7,7 +7,7 @@
     tls off
 }
 
-:9093 {
+:3335 {
     proxy / alertmanager:9093 {
             transparent
         }
@@ -16,7 +16,7 @@
     tls off
 }
 
-:9091 {
+:3336 {
     proxy / pushgateway:9091 {
             transparent
         }
@@ -25,7 +25,7 @@
     tls off
 }
 
-:3000 {
+:3333 {
     proxy / grafana:3000 {
             transparent
             websocket
