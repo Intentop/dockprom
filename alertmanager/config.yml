@@ -1,11 +1,17 @@
 route:
-    receiver: 'slack'
+    receiver: 'telegram'
 
 receivers:
-    - name: 'slack'
-      slack_configs:
-          - send_resolved: true
-            text: "{{ .CommonAnnotations.description }}"
-            username: 'Prometheus'
-            channel: '#<channel-name>'
-            api_url: 'https://hooks.slack.com/services/<webhook-id>'
+#  - name: 'slack'
+#    slack_configs:
+#        - send_resolved: true
+#          text: "{{ .CommonAnnotations.description }}"
+#          username: 'Prometheus'
+#          channel: '#<channel-name>'
+#          api_url: 'https://hooks.slack.com/services/<webhook-id>'
+
+
+  - name: 'telegram'
+    webhook_configs:
+      - send_resolved: true
+        url: tgalertbot:9087/alert/-1001427427279

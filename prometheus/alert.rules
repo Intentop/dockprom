@@ -41,30 +41,75 @@ groups:
 
 - name: containers
   rules:
-  - alert: jenkins_down
-    expr: absent(container_memory_usage_bytes{name="jenkins"})
+  - alert: api_down
+    expr: absent(container_memory_usage_bytes{name="love-api"})
     for: 30s
     labels:
       severity: critical
     annotations:
-      summary: "Jenkins down"
-      description: "Jenkins container is down for more than 30 seconds."
+      summary: "API is down"
+      description: "API container is down for more than 30 seconds."
 
-  - alert: jenkins_high_cpu
-    expr: sum(rate(container_cpu_usage_seconds_total{name="jenkins"}[1m])) / count(node_cpu_seconds_total{mode="system"}) * 100 > 10
+  - alert: api_high_cpu
+    expr: sum(rate(container_cpu_usage_seconds_total{name="love-api"}[1m])) / count(node_cpu_seconds_total{mode="system"}) * 100 > 10
     for: 30s
     labels:
       severity: warning
     annotations:
-      summary: "Jenkins high CPU usage"
-      description: "Jenkins CPU usage is {{ humanize $value}}%."
+      summary: "API high CPU usage"
+      description: "API CPU usage is {{ humanize $value}}%."
 
-  - alert: jenkins_high_memory
-    expr: sum(container_memory_usage_bytes{name="jenkins"}) > 1200000000
+  - alert: api_high_memory
+    expr: sum(container_memory_usage_bytes{name="love-api"}) > 1200000000
     for: 30s
     labels:
       severity: warning
     annotations:
-      summary: "Jenkins high memory usage"
-      description: "Jenkins memory consumption is at {{ humanize $value}}."
+      summary: "API high memory usage"
+      description: "API memory consumption is at {{ humanize $value}}."
+
+  - alert: site_down
+    expr: absent(container_memory_usage_bytes{name="love-site"})
+    for: 30s
+    labels:
+      severity: critical
+    annotations:
+      summary: "Site is down"
+      description: "Site container is down for more than 30 seconds."
+
+  - alert: site_high_cpu
+    expr: sum(rate(container_cpu_usage_seconds_total{name="love-site"}[1m])) / count(node_cpu_seconds_total{mode="system"}) * 100 > 10
+    for: 30s
+    labels:
+      severity: warning
+    annotations:
+      summary: "Site high CPU usage"
+      description: "Site CPU usage is {{ humanize $value}}%."
+
+  - alert: site_high_memory
+    expr: sum(container_memory_usage_bytes{name="love-site"}) > 1200000000
+    for: 30s
+    labels:
+      severity: warning
+    annotations:
+      summary: "Site high memory usage"
+      description: "Site memory consumption is at {{ humanize $value}}."
+
+  - alert: nginx_down
+    expr: absent(container_memory_usage_bytes{name="nginx-static"})
+    for: 30s
+    labels:
+      severity: critical
+    annotations:
+      summary: "Nginx for static is down"
+      description: "Nginx-static container is down for more than 30 seconds."
+
+  - alert: db_down
+    expr: absent(container_memory_usage_bytes{name="love-db"})
+    for: 30s
+    labels:
+      severity: critical
+    annotations:
+      summary: "Database is down"
+      description: "Database container is down for more than 30 seconds."
 

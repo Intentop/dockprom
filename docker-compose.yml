@@ -3,6 +3,8 @@ version: '2.1'
 networks:
   monitor-net:
     driver: bridge
+  monitor-bridge:
+    external: true
 
 volumes:
     prometheus_data: {}
@@ -44,6 +46,22 @@ services:
       - 9093
     networks:
       - monitor-net
+    labels:
+      org.label-schema.group: "monitoring"
+
+  nginxexporter:
+    image: nginx/nginx-prometheus-exporter
+    container_name: nginxexporter
+    entrypoint:
+    - /usr/bin/exporter
+    - -nginx.scrape-uri
+    - http://proxy:8080/stub_status
+    restart: unless-stopped
+    expose:
+      - 9113
+    networks:
+      - monitor-net
+      - monitor-bridge
     labels:
       org.label-schema.group: "monitoring"
 
@@ -129,5 +147,18 @@ services:
     restart: unless-stopped
     networks:
       - monitor-net
+    labels:
+      org.label-schema.group: "monitoring"
+
+  alerttelegram:
+    image: b3vis/prometheus_bot
+    container_name: tgalertbot
+    expose:
+      - 9087
+    volumes:
+      - ./tgalert:/config
+    networks:
+      - monitor-net
+    restart: unless-stopped
     labels:
       org.label-schema.group: "monitoring"
