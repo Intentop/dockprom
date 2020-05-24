@@ -17,7 +17,6 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1590338761031,
   "links": [],
   "panels": [
     {
@@ -504,7 +503,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"nginx\"}[5m])) / count(node_cpu_seconds_total{mode=\"system\"}) * 100",
+              "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"proxy\"}[5m])) / count(node_cpu_seconds_total{mode=\"system\"}) * 100",
               "intervalFactor": 2,
               "legendFormat": "nginx",
               "refId": "A",
@@ -615,11 +614,10 @@
       "30d"
     ]
   },
-  "timezone": "",
-  "title": "NGINX1",
-  "uid": "MsjffzSZz",
+  "timezone": "browser",
+  "title": "NGINX",
   "variables": {
     "list": []
   },
-  "version": 1
+  "version": 9
 }
