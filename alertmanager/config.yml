@@ -13,4 +13,4 @@ receivers:
   - name: 'telegram'
     webhook_configs:
       - send_resolved: true
-        url: http://tgalertbot:9087/alert/-1001425356455
+        url: http://tgalertbot:9087/alert/-1001427427279
