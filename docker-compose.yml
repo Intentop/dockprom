@@ -3,8 +3,8 @@ version: '2.1'
 networks:
   monitor-net:
     driver: bridge
-  monitor-bridge:
-    external: true
+#  monitor-bridge:
+#    external: true
 
 volumes:
     prometheus_data: {}
