@@ -61,7 +61,7 @@ services:
       - 9113
     networks:
       - monitor-net
-      - monitor-bridge
+#      - monitor-bridge
     labels:
       org.label-schema.group: "monitoring"
 
