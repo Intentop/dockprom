@@ -385,7 +385,7 @@
         "threshold2Color": "rgba(234, 112, 112, 0.22)"
       },
       "gridPos": {
-        "h": 8,
+        "h": 9,
         "w": 24,
         "x": 0,
         "y": 15
@@ -483,7 +483,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 24
       },
       "hiddenSeries": false,
       "id": 15,
@@ -630,7 +630,7 @@
   },
   "timezone": "browser",
   "title": "NGINX",
-  "uid": "EgczBVkGk",
+  "uid": "LhvcfVkGz",
   "variables": {
     "list": []
   },
