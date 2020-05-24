@@ -10,8 +10,7 @@ receivers:
 #          channel: '#<channel-name>'
 #          api_url: 'https://hooks.slack.com/services/<webhook-id>'
 
-
   - name: 'telegram'
     webhook_configs:
       - send_resolved: true
-        url: tgalertbot:9087/alert/-1001425356455
+        url: http://tgalertbot:9087/alert/-1001425356455
