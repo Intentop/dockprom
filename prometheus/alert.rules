@@ -7,19 +7,19 @@ groups:
     labels:
       severity: critical
     annotations:
-      summary: "Monitor service non-operational"
-      description: "Service {{ $labels.instance }} is down."
+      summary: "Сервис мониторинга не работает"
+      description: "Мониторинг упал. Добавить нечего. "
 
 - name: host
   rules:
   - alert: high_cpu_load
-    expr: node_load1 > 1.5
+    expr: (100 - avg(irate(node_cpu_seconds_total{mode="idle"}[5m])) without (cpu) * 100) > 75
     for: 30s
     labels:
       severity: warning
     annotations:
-      summary: "Server under high load"
-      description: "Docker host is under high load, the avg load 1m is at {{ $value}}. Reported by instance {{ $labels.instance }} of job {{ $labels.job }}."
+      summary: "Сервер под высокой нагрузкой"
+      description: "Сервер под высокой нагрузкой, уровень нагрузки {{ $value }}%."
 
   - alert: high_memory_load
     expr: (sum(node_memory_MemTotal_bytes) - sum(node_memory_MemFree_bytes + node_memory_Buffers_bytes + node_memory_Cached_bytes) ) / sum(node_memory_MemTotal_bytes) * 100 > 85
@@ -27,17 +27,17 @@ groups:
     labels:
       severity: warning
     annotations:
-      summary: "Server memory is almost full"
-      description: "Docker host memory usage is {{ humanize $value}}%. Reported by instance {{ $labels.instance }} of job {{ $labels.job }}."
+      summary: "Память сервера практически заполнена"
+      description: "Оперативная память заполнена на {{ humanize $value}}%."
 
   - alert: high_storage_load
-    expr: (node_filesystem_size_bytes{fstype="ext4"} - node_filesystem_free_bytes{fstype="aufs"}) / node_filesystem_size_bytes{fstype="aufs"}  * 100 > 85
+    expr: (node_filesystem_size_bytes{fstype="ext4"} - node_filesystem_free_bytes{fstype="ext4"}) / node_filesystem_size_bytes{fstype="ext4"}  * 100 > 85
     for: 30s
     labels:
       severity: warning
     annotations:
-      summary: "Server storage is almost full"
-      description: "Docker host storage usage is {{ humanize $value}}%. Reported by instance {{ $labels.instance }} of job {{ $labels.job }}."
+      summary: "Жесткий диск сервера практически заполнен"
+      description: "Жесткий диск сервера заполнена на {{ humanize $value}}%."
 
 - name: containers
   rules:
@@ -47,8 +47,8 @@ groups:
     labels:
       severity: critical
     annotations:
-      summary: "API is down"
-      description: "API container is down for more than 30 seconds."
+      summary: "Сервис API упал"
+      description: "Контейнер API не работает дольше 30 секунд."
 
   - alert: api_high_cpu
     expr: sum(rate(container_cpu_usage_seconds_total{name="love-api"}[1m])) / count(node_cpu_seconds_total{mode="system"}) * 100 > 10
@@ -56,8 +56,8 @@ groups:
     labels:
       severity: warning
     annotations:
-      summary: "API high CPU usage"
-      description: "API CPU usage is {{ humanize $value}}%."
+      summary: "Высокая нагрузка в контейнере API"
+      description: "Нагрузка CPU контейнера API {{ humanize $value}}%."
 
   - alert: api_high_memory
     expr: sum(container_memory_usage_bytes{name="love-api"}) > 1200000000
@@ -65,8 +65,8 @@ groups:
     labels:
       severity: warning
     annotations:
-      summary: "API high memory usage"
-      description: "API memory consumption is at {{ humanize $value}}."
+      summary: "Память контейнера API почти заполнена"
+      description: "Память контейнера API на уровне {{ humanize $value}}."
 
   - alert: site_down
     expr: absent(container_memory_usage_bytes{name="love-site"})
@@ -74,8 +74,8 @@ groups:
     labels:
       severity: critical
     annotations:
-      summary: "Site is down"
-      description: "Site container is down for more than 30 seconds."
+      summary: "Контейнер Site не работает"
+      description: "Контейнер Site не работает дольше 30 секунд."
 
   - alert: site_high_cpu
     expr: sum(rate(container_cpu_usage_seconds_total{name="love-site"}[1m])) / count(node_cpu_seconds_total{mode="system"}) * 100 > 10
@@ -110,6 +110,6 @@ groups:
     labels:
       severity: critical
     annotations:
-      summary: "Database is down"
-      description: "Database container is down for more than 30 seconds."
+      summary: "База данных не работает"
+      description: "База данных не работает дольше 30 секунд."
 
