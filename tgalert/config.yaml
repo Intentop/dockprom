@@ -1,4 +1,4 @@
 telegram_token: "1047810090:AAFqKnnku5LC9PqLVE7phUN0OjqpyCz3Wgo"
-template_path: "/config/prod.tmpl" # your template file name
+#template_path: "/config/prod.tmpl" # your template file name
 time_zone: "Europe/Moscow" # your time zone check it out from WIKI
 split_token: "|" # token used for split measure label.
