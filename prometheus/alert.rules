@@ -51,7 +51,7 @@ groups:
       description: "Контейнер API не работает дольше 30 секунд."
 
   - alert: api_high_cpu
-    expr: sum(rate(container_cpu_usage_seconds_total{name="love-api"}[1m])) / count(node_cpu_seconds_total{mode="system"}) * 100 > 10
+    expr: sum(rate(container_cpu_usage_seconds_total{name="love-api"}[1m])) / count(node_cpu_seconds_total{mode="system"}) * 100 > 30
     for: 30s
     labels:
       severity: warning
@@ -78,7 +78,7 @@ groups:
       description: "Контейнер Site не работает дольше 30 секунд."
 
   - alert: site_high_cpu
-    expr: sum(rate(container_cpu_usage_seconds_total{name="love-site"}[1m])) / count(node_cpu_seconds_total{mode="system"}) * 100 > 10
+    expr: sum(rate(container_cpu_usage_seconds_total{name="love-site"}[1m])) / count(node_cpu_seconds_total{mode="system"}) * 100 > 30
     for: 30s
     labels:
       severity: warning
