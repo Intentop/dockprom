@@ -42,7 +42,7 @@ groups:
 - name: containers
   rules:
   - alert: api_down
-    expr: absent(container_memory_usage_bytes{name="love-api"})
+    expr: absent(container_memory_usage_bytes{name=~"love_api"})
     for: 35s
     labels:
       severity: critical
