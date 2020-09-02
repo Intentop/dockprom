@@ -42,7 +42,7 @@ groups:
 - name: containers
   rules:
   - alert: api_down
-    expr: absent(container_memory_usage_bytes{name=~"love_api"})
+    expr: absent(container_memory_usage_bytes{name=~"love_api.*"})
     for: 35s
     labels:
       severity: critical
@@ -51,7 +51,7 @@ groups:
       description: "Контейнер API не работает дольше 35 секунд."
 
   - alert: api_high_cpu
-    expr: sum(rate(container_cpu_usage_seconds_total{name=~"love_api"}[1m])) / count(node_cpu_seconds_total{mode="system"}) * 100 > 40
+    expr: sum(rate(container_cpu_usage_seconds_total{name=~"love_api.*"}[1m])) / count(node_cpu_seconds_total{mode="system"}) * 100 > 40
     for: 30s
     labels:
       severity: warning
@@ -60,7 +60,7 @@ groups:
       description: "Нагрузка CPU контейнера API {{ humanize $value}}%."
 
   - alert: api_high_memory
-    expr: sum(container_memory_usage_bytes{name=~"love_api"}) > 1200000000
+    expr: sum(container_memory_usage_bytes{name=~"love_api.*"}) > 1200000000
     for: 30s
     labels:
       severity: warning
