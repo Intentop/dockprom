@@ -51,22 +51,22 @@ groups:
       description: "Контейнер API не работает дольше 35 секунд."
 
   - alert: api_high_cpu
-    expr: sum(rate(container_cpu_usage_seconds_total{name=~"love_api.*"}[1m])) / count(node_cpu_seconds_total{mode="system"}) * 100 > 40
-    for: 30s
+    expr: sum(rate(container_cpu_usage_seconds_total{name=~"love_api.*"}[1m])) / count(node_cpu_seconds_total{mode="system"}) * 100 > 50
+    for: 1m
     labels:
       severity: warning
     annotations:
-      summary: "Высокая нагрузка в контейнере API в течение 30 секунд"
+      summary: "Нагрузка в контейнерах API больше 50% в течение минуты"
       description: "Нагрузка CPU контейнера API {{ humanize $value}}%."
 
   - alert: api_high_memory
-    expr: sum(container_memory_usage_bytes{name=~"love_api.*"}) > 1200000000
-    for: 30s
+    expr: sum(container_memory_usage_bytes{name=~"love_api.*"}) > 2097152000
+    for: 1m
     labels:
       severity: warning
     annotations:
-      summary: "Память контейнера API почти заполнена"
-      description: "Память контейнера API на уровне {{ humanize $value}}."
+      summary: "Память контейнеров API заняла больше 2000МБ в течение 1 минуты"
+      description: "Память контейнера API на уровне  {{ humanize $value}}."
 
   - alert: site_down
     expr: absent(container_memory_usage_bytes{name="love-site"})
